@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiBase = 'https://localhost3001/api/'
+const apiBase = 'http://localhost:3001/api/'
 
 export const createUser = async (username: string, password: string) => {
     const response = await fetch(`${apiBase}users`, {

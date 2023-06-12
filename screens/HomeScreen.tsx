@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getArtworks } from '../services/ArtworkService';
 import ArtworkList from '../components/ArtworkList';
+import { ScrollView, View } from 'react-native';
 
 const HomeScreen = () => {
   const [artworks, setArtworks] = useState([]);
@@ -15,9 +16,10 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <div>
+
+    <ScrollView>
       <ArtworkList artworks={artworks} />
-    </div>
+    </ScrollView>
   );
 };
 

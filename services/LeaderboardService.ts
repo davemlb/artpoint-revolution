@@ -1,5 +1,5 @@
 
-const apiBase = 'https://localhost3001/api/'
+const apiBase = 'http://localhost:3001/api/'
 
 const getArtworkLeaderboard = async () => {
     const response = await fetch(`${apiBase}`);

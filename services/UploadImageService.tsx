@@ -17,7 +17,7 @@ const uploadImage = async (imageUri: string) => {
         formData.append('file', blob, `photo.${fileType}`);
 
         const result = await axios({
-            url: 'https://localhost:3001/artwork/createArtwork',
+            url: 'http://localhost:3001/artworks/createArtwork',
             method: 'POST',
             data: formData,
             headers: {'Content-Type': 'multipart/form-data'},

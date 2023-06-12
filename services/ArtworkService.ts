@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IArtwork } from '../interfaces/IArtwork';
 
 
-const apiBase = 'https://localhost3001/api/'
+const apiBase = 'http://localhost:3001/api/'
 
 export const getArtworks = async () => {
   try {
@@ -52,7 +52,7 @@ export const getLikesCount = async (artworkId: string) => {
 };
 
 const getArtworksByUser = async (username: string) => {
-    const response = await fetch(`https://api.example.com/users/${username}/artworks`);
+    const response = await fetch(`http://api.example.com/users/${username}/artworks`);
 
     if (!response.ok) {
         throw new Error('Failed to fetch artworks');

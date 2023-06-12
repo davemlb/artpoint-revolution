@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView } from 'react-native';
 import { getArtworks } from '../services/ArtworkService';
-import {ArtCard} from '../components/ArtworkList';
-import { Navbar } from '../components/shared/NavigationBar';
-import styles from '../styles';
+import ArtworkList from '../components/ArtworkList';
 
 const HomeScreen = () => {
   const [artworks, setArtworks] = useState([]);
@@ -18,11 +15,9 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <ScrollView>
-      {artworks.map((artwork) => (
-        <ArtCard key={artwork} artwork={artwork} />
-      ))}
-    </ScrollView>
+    <div>
+      <ArtworkList artworks={artworks} />
+    </div>
   );
 };
 

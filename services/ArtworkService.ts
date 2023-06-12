@@ -4,19 +4,18 @@ import { IArtwork } from '../interfaces/IArtwork';
 
 const apiBase = 'https://localhost3001/api/'
 
-export const getArtworks = async ( ) => {
-    const response = await fetch(`${apiBase}artworkleaderboard`);
-
-    if (!response.ok) {
-        throw new Error('Failed to fetch artworks');
-    }
-
-    const artworks = await response.json();
-    return artworks;
+export const getArtworks = async () => {
+  try {
+    const response = await axios.get(`${apiBase}artworks`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
+
 const createArtwork = async (title: string, imageURL: string, artist: string) => {
-    const response = await fetch(`${apiBase}/artwork/`, {
+    const response = await fetch(`${apiBase}/artworks/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

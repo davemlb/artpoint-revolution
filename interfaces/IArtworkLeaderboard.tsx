@@ -1,4 +1,4 @@
-interface IArtworkLeaderboard {
+export interface IArtworkLeaderboard {
     id: number;
     artwork_id: number;
     artwork_likesCount: number;

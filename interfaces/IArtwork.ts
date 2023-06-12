@@ -1,14 +1,8 @@
-import { ReactNode } from "react";
-
+// /interfaces/IArtwork.ts
 export interface IArtwork {
-  image: string | undefined;
+  id: number;
   title: string;
-  user: string;
-  likes: number;
   imageURL: string;
-  id: string;
   likesCount: number;
   artist: string;
 }
-
-

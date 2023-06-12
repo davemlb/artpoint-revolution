@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { getArtworks } from '../services/ArtworkService';
 import {LeaderboardCard} from '../components/LeaderboardCard';
+import styles from '../styles';
 
 const LeaderboardScreen = () => {
   const [artworks, setArtworks] = useState([]);

@@ -10,8 +10,8 @@ const ArtworkItem = ({ artwork }: { artwork: IArtwork }) => {
       <Image source={{ uri: artwork.imageURL }} style={{ width: 50, height: 50 }} />
       <View style={{ marginLeft: 10 }}>
         <Text>{artwork.title}</Text>
-        <Text>By: {artwork.user}</Text>
-        <Text>Likes: {artwork.likes}</Text>
+        <Text>By: {artwork.artist}</Text>
+        <Text>Likes: {artwork.likesCount}</Text>
       </View>
     </View>
   );

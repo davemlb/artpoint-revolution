@@ -1,25 +1,34 @@
-/*import React, {useState} from 'react';
+import React, {useState} from 'react';
 import {Button, View, TextInput, Alert} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { Image } from 'react-native';
+import {launchImageLibrary, MediaType} from 'react-native-image-picker';
 
-export default function PostArtwork({onSubmit}) {
+interface IPostArtworkProps {
+  onSubmit: (data: { title: string, imageUri: { uri: string } }) => void;  // replace with the actual type of your onSubmit function
+}
+
+export default function PostArtwork({onSubmit}: IPostArtworkProps) {
   const [title, setTitle] = useState('');
-  const [imageUri, setImageUri] = useState(null);
+  const [imageUri, setImageUri] = useState<{ uri: string } | null>(null);
+
 
   function handleChooseImage() {
     const options = {
-      mediaType: 'photo',
+      mediaType: 'photo' as MediaType,
     };
 
     launchImageLibrary(options, (response) => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else {
-        const source = {uri: response.assets[0].uri};
+      } else if (response.errorMessage) {
+        console.log('ImagePicker Error: ', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
+        const source = { uri: response.assets[0].uri || '' };
         setImageUri(source);
+      } else {
+        console.log('No image selected');
       }
+      
     });
   }
 
@@ -46,4 +55,4 @@ export default function PostArtwork({onSubmit}) {
     </View>
   );
 }
-*/
+

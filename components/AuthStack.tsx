@@ -12,6 +12,11 @@ import Signup from './Signup';
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const handleOnSubmit = ({title, imageUri}: {title: string, imageUri: {uri: string}}) => {
+  // Do something with title and imageUri...
+  console.log(title, imageUri);
+};
+
 function AuthStackScreen() {
   return (
     <AuthStack.Navigator>
@@ -26,7 +31,7 @@ function TabNavigator() {
     <Tab.Navigator>
       <Tab.Screen name="HomeScreen" component={HomeScreen} />
       <Tab.Screen name="LeaderboardScreen" component={LeaderboardScreen} />
-      <Tab.Screen name="UploadScreen" component={UploadButton} />
+      <Tab.Screen name="UploadButton" component={() => <UploadButton onSubmit={handleOnSubmit} />} />
       <Tab.Screen name="ProfileScreen" component={ProfileScreen} />
     </Tab.Navigator>
   );

@@ -1,11 +1,31 @@
-/*import React, { useEffect, useState } from 'react';
+/*import React, { FC, useEffect, useState } from 'react';
 import { ScrollView, Button } from 'react-native';
 import { getCompetitions, joinCompetition } from '../services/competitionService';
 import { IArtwork } from '../interfaces/IArtwork';
+import { View } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
+import styles from '../styles';
 
 
-export const CompetitionScreen: React.FC<IArtwork> = ({ }) => {
+// Define the props type for your screen component
+interface CompetitionScreenProps {
+  route: RouteProp<Record<string, object | undefined>, 'Competition'>;
+  // Add any other navigation prop types you need
+}
+
+const CompetitionScreen: FC<CompetitionScreenProps> = ({ route }) => {
+  // Extract the necessary params from your route and pass them to IArtwork
+  const artworkProps: IArtwork = {
+    id: route.params.id,
+    title: route.params.title,
+    // other properties...
+  };
+
+  return <IArtwork {...artworkProps} />;
+
   const [competitions, setCompetitions] = useState([]);
+
+  
 
   useEffect(() => {
     const fetchCompetitions = async () => {
@@ -22,18 +42,19 @@ export const CompetitionScreen: React.FC<IArtwork> = ({ }) => {
     console.log(result);
   };
 
+  // Define the props type for your screen component
+
+  
+
   return (
-    <ScrollView>
-      {competitions.map((competition) => (
-        <View key={competition.id}>
-          <Text>{competition.title}</Text>
-          <Text>{competition.description}</Text>
-          <Button title="Join Competition" onPress={() => handleJoinCompetition(competition.id)} />
+
+
+        <View >
+          <h1>Hello Competition</h1>
+          
         </View>
-      ))}
-    </ScrollView>
-  );
+      )
 };
 
-export default Competition;
+export default CompetitionScreen;
 */

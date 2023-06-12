@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button } from 'react-native';
 import { IArtwork } from '../interfaces/IArtwork';
+import { IArtworkLeaderboard } from '../interfaces/IArtworkLeaderboard';
 import * as ArtworkService from '../services/ArtworkService'
 
 interface LeaderboardCardProps {

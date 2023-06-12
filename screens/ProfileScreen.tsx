@@ -2,6 +2,7 @@
 import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
 import { UserContext } from '../contexts/UserContext';
+import styles from '../styles';
 
 const ProfileScreen = () => {
   const user = useContext(UserContext);
@@ -13,7 +14,7 @@ const ProfileScreen = () => {
 
   return (
     <View>
-      <Text>{user.username}</Text>
+      <Text>Profile</Text>
       {/* render user's artworks here */}
     </View>
   );

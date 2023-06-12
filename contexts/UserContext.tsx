@@ -1,5 +1,24 @@
-// UserContext.tsx
-import React from 'react';
+// /context/UserContext.tsx
+import React, { createContext, useState, ReactNode } from 'react';
 import { IUser } from '../interfaces/IUser';
 
-export const UserContext = React.createContext<IUser | undefined>(undefined);
+interface UserContextProps {
+  user: IUser | null;
+  setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
+}
+
+interface UserProviderProps {
+  children: ReactNode;
+}
+
+export const UserContext = createContext<UserContextProps | undefined>(undefined);
+
+export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<IUser | null>(null);
+
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};

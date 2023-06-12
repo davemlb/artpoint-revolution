@@ -8,7 +8,7 @@ const Login = ({ navigation } : {navigation: NavigationProp<ParamListBase>}) => 
 
   const login = async () => {
     try {
-      const response = await fetch('http://your-server-address/', {
+      const response = await fetch('https://localhost:3001/api/user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,4 +38,5 @@ const Login = ({ navigation } : {navigation: NavigationProp<ParamListBase>}) => 
 };
 
 export default Login;
+
 

@@ -1,18 +1,42 @@
 import axios from 'axios';
 import { IArtwork } from '../interfaces/IArtwork';
 
-export const getArtworks = async () => {
-  try {
-    const response = await axios.get('/api/artworks');
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+
+const apiBase = 'https://localhost3001/api/'
+
+export const getArtworks = async ( ) => {
+    const response = await fetch(`${apiBase}artworkleaderboard`);
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch artworks');
+    }
+
+    const artworks = await response.json();
+    return artworks;
 };
+
+const createArtwork = async (title: string, imageURL: string, artist: string) => {
+    const response = await fetch(`${apiBase}/artwork/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title, imageURL, artist }),
+    });
+
+    if (!response.ok) {
+        throw new Error('Failed to create artwork');
+    }
+
+    const artwork = await response.json();
+    return artwork;
+};
+
+
 
 export const uploadArtwork = async (artwork: IArtwork) => {
   try {
-    const response = await axios.post('/api/artworks', artwork);
+    const response = await axios.post(`${apiBase}/artwork/`, artwork);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -21,12 +45,24 @@ export const uploadArtwork = async (artwork: IArtwork) => {
 
 export const getLikesCount = async (artworkId: string) => {
   try {
-    const response = await axios.get(`/api/artworks/${artworkId}/likesCount`);
+    const response = await axios.get(`${apiBase}/artwork/${artworkId}/likesCount`);
     return response.data.likesCount;
   } catch (error) {
     console.error(error);
   }
 };
+
+const getArtworksByUser = async (username: string) => {
+    const response = await fetch(`https://api.example.com/users/${username}/artworks`);
+
+    if (!response.ok) {
+        throw new Error('Failed to fetch artworks');
+    }
+
+    const artworks = await response.json();
+    return artworks;
+};
+
 
 
 

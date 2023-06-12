@@ -22,7 +22,6 @@ const HomeScreen = () => {
       {artworks.map((artwork) => (
         <ArtCard key={artwork} artwork={artwork} />
       ))}
-      <Navbar ></Navbar>
     </ScrollView>
   );
 };

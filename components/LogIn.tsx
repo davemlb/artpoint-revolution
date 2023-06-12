@@ -8,14 +8,16 @@ const Login = ({ navigation } : {navigation: NavigationProp<ParamListBase>}) => 
 
   const login = async () => {
     try {
-      const response = await fetch('https://localhost:3001/api/user', {
-        method: 'POST',
+      const response = await fetch(`https://localhost:3001/api/users/${username}`, {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, password }),
       });
-      if (response.ok) {
+      const data = await response.json();
+  
+      // This is insecure and should NOT be done
+      if (data.password === password) {
         // Navigate to HomeScreen after successful login
         navigation.navigate('HomeScreen');
       } else {
@@ -26,6 +28,7 @@ const Login = ({ navigation } : {navigation: NavigationProp<ParamListBase>}) => 
       Alert.alert('Login failed');
     }
   };
+  
 
   return (
     <View>

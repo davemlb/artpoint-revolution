@@ -10,8 +10,18 @@ interface ArtworkCardProps {
 
 const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
   const handleLike = async () => {
-    await artworkServices.likeArtwork(artwork.id.toString());
-  };
+    try {
+      await artworkServices.likeArtwork(artwork.id.toString());
+      // Assuming the likes count is stored in the `artwork` object,
+      // you can increment it by updating the `artwork` state or creating a new updated object.
+      // For example:
+      //const updatedArtwork = { ...artwork, likesCount: artwork.likesCount + 1 };
+      const updatedArtwork = await artworkServices.getArtworkById(artwork.id.toString());
+      // Handle the updated artwork object as needed
+      console.log(updatedArtwork);
+    } catch (error) {
+      console.error("Error:", error);
+    }  };
 
   const handleBookmark = async () => {
     await artworkServices.bookmarkArtwork(artwork.id.toString());
@@ -24,7 +34,8 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
   return (
     <View>
       <Image style={styles.image} source={{uri: artwork.imageURL}}  />
-      <Text>{artwork.artist}</Text>
+      <Text>@{artwork.artist}</Text>
+      <Text>{artwork.title}</Text>
       <Button title="Like" onPress={handleLike} />
       <Button title="Bookmark" onPress={handleBookmark} />
       <Button title="Tip" onPress={handleTip} />

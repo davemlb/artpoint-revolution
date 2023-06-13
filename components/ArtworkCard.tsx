@@ -36,6 +36,7 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
       <Image style={styles.image} source={{uri: artwork.imageURL}}  />
       <Text>@{artwork.artist}</Text>
       <Text>{artwork.title}</Text>
+      <Text>{artwork.likesCount} likes</Text>
       <Button title="Like" onPress={handleLike} />
       <Button title="Bookmark" onPress={handleBookmark} />
       <Button title="Tip" onPress={handleTip} />

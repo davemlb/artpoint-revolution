@@ -12,7 +12,14 @@ export const getArtworks = async () => {
     console.error(error);
   }
 };
-
+export const getArtworkById = async (artworkId: string) => {
+  try {
+    const response = await axios.get(`${apiBase}/artworks/${artworkId}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const createArtwork = async (title: string, imageURL: string, artist: string) => {
     const response = await fetch(`${apiBase}/artworks/`, {
@@ -51,15 +58,18 @@ export const getLikesCount = async (artworkId: string) => {
   }
 };
 
-const getArtworksByUser = async (username: string) => {
-    const response = await fetch(`${apiBase}/:${username}/artworks`);
+export const getArtworksByUser = async (username: string) => {
+  try {
+    console.log(username);
 
-    if (!response.ok) {
-        throw new Error('Failed to fetch artworks');
+    if (!username) {
+      throw new Error("Username is required to fetch artworks");
     }
-
-    const artworks = await response.json();
-    return artworks;
+    const response = await axios.get(`${apiBase}/users/${username}/artworks`);
+    return response.data;
+  } catch (error) {
+    console.error(`Failed to fetch artworks: ${error}`);
+  }
 };
 
 export const getSortedArtworks = async () => {
@@ -72,8 +82,13 @@ export const getSortedArtworks = async () => {
 }
 
 
-export function likeArtwork(id: string) {
-    throw new Error('Function not implemented.');
+export const likeArtwork = async (artworkId: string) => {
+  try {
+    const response = await axios.patch(`${apiBase}/artworks/${artworkId}/like`);
+    console.log(response.data); // Handle the response if needed
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
 export function bookmarkArtwork(id: string) {

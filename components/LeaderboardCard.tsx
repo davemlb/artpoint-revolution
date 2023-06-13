@@ -30,7 +30,7 @@ const LeaderboardCard: React.FC<LeaderboardCardProps> = ({ artwork }) => {
       {/* <Text>{artwork.artwork_id}</Text> */}
       <Image style={styles.image} source={{uri: artwork.imageURL}}/>
       <Text>{artwork.title}</Text>
-      <Text>{artwork.likesCount}</Text>
+      <Text>{artwork.likesCount} likes</Text>
     </View>
   );
   

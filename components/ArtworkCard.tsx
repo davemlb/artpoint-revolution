@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IArtwork } from '../interfaces/IArtwork';
 import * as artworkServices from '../services/ArtworkService';
 import { View, Image, Text, Button, StyleSheet } from 'react-native';
@@ -9,6 +9,9 @@ interface ArtworkCardProps {
 }
 
 const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
+
+  const [likesCount, setLikesCount] = useState(artwork.likesCount);
+
   const handleLike = async () => {
     try {
       await artworkServices.likeArtwork(artwork.id.toString());
@@ -17,6 +20,7 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
       // For example:
       //const updatedArtwork = { ...artwork, likesCount: artwork.likesCount + 1 };
       const updatedArtwork = await artworkServices.getArtworkById(artwork.id.toString());
+      setLikesCount(updatedArtwork.likesCount);
       // Handle the updated artwork object as needed
       console.log(updatedArtwork);
     } catch (error) {
@@ -36,7 +40,7 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
       <Image style={styles.image} source={{uri: artwork.imageURL}}  />
       <Text>@{artwork.artist}</Text>
       <Text>{artwork.title}</Text>
-      <Text>{artwork.likesCount} likes</Text>
+      <Text>{likesCount} likes</Text>
       <Button title="Like" onPress={handleLike} />
       <Button title="Bookmark" onPress={handleBookmark} />
       <Button title="Tip" onPress={handleTip} />

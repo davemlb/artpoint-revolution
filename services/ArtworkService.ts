@@ -6,7 +6,7 @@ const apiBase = 'http://localhost:3001/api'
 
 export const getArtworks = async () => {
   try {
-    const response = await axios.get(`${apiBase}artworks`);
+    const response = await axios.get(`${apiBase}/artworks`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -14,7 +14,7 @@ export const getArtworks = async () => {
 };
 
 
-const createArtwork = async (title: string, imageURL: string, artist: string) => {
+export const createArtwork = async (title: string, imageURL: string, artist: string) => {
     const response = await fetch(`${apiBase}/artworks/`, {
         method: 'POST',
         headers: {
@@ -65,16 +65,11 @@ const getArtworksByUser = async (username: string) => {
 export const getSortedArtworks = async () => {
   try {
       const response = await axios.get(`${apiBase}/artworks/sortedByLikes`);
-  
-      return response.data();
+      return response.data;
     } catch (error) {
       console.error("Error:", error);
     }
 }
-
-
-
-
 
 
 export function likeArtwork(id: string) {

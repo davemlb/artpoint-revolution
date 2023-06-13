@@ -7,6 +7,8 @@ interface UserContextProps {
   setUser: React.Dispatch<React.SetStateAction<IUser | null>>;
 }
 
+
+
 interface UserProviderProps {
   children: ReactNode;
 }
@@ -14,7 +16,12 @@ interface UserProviderProps {
 export const UserContext = createContext<UserContextProps | undefined>(undefined);
 
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<IUser | null>(null);
+  const [user, setUser] = useState<IUser | null>({
+    id: 0,
+    username: '', 
+    password: '',
+    // ... initial values for any other properties ...
+  });
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

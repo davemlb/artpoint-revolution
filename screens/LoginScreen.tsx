@@ -3,6 +3,7 @@ import { Button, TextInput, View } from 'react-native';
 import styles from '../styles';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { login } from '../services/AuthService';
 
 export default function LoginScreen() {
   const [username, setUsername] = useState('');

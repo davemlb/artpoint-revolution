@@ -1,24 +1,42 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Alert } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { Button, TextInput, View, Alert } from 'react-native';
+import styles from '../styles';
+import { useNavigation } from '@react-navigation/native';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
+import { UserContext } from '../contexts/UserContext';
 
-const Login = ({ navigation } : {navigation: NavigationProp<ParamListBase>}) => {
+export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation<NavigationProp<ParamListBase>>();
+  const context = useContext(UserContext);
 
-  const login = async () => {
+  if (!context) {
+    throw new Error('UserContext is undefined');
+  }
+
+  const { setUser } = context;
+
+  const handleLogin = async () => {
+    console.log('login function called');
     try {
-      const response = await fetch(`https://localhost:3001/api/users/${username}`, {
+      const response = await fetch(`http://localhost:3001/api/users/${username}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
       const data = await response.json();
+      console.log("password" + password);
   
-      // This is insecure and should NOT be done
       if (data.password === password) {
-        // Navigate to HomeScreen after successful login
+        setUser({
+          id: data.id,
+          username: data.username,
+          password: data.password,
+          // ... other user properties ...
+        });
+        console.log("user", data);
         navigation.navigate('HomeScreen');
       } else {
         Alert.alert('Login failed');
@@ -28,18 +46,24 @@ const Login = ({ navigation } : {navigation: NavigationProp<ParamListBase>}) => 
       Alert.alert('Login failed');
     }
   };
-  
 
   return (
-    <View>
-      <TextInput placeholder="Username" onChangeText={setUsername} />
-      <TextInput placeholder="Password" onChangeText={setPassword} secureTextEntry />
-      <Button title="Login" onPress={login} />
-      <Button title="Sign Up" onPress={() => navigation.navigate('Signup')} />
+    <View style={styles.container}>
+      <TextInput
+        value={username}
+        onChangeText={setUsername}
+        placeholder={'Username'}
+        style={styles.input}
+      />
+      <TextInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder={'Password'}
+        secureTextEntry={true}
+        style={styles.input}
+      />
+      <Button title="Login" onPress={handleLogin} />
+      <Button title="Signup" onPress={() => navigation.navigate('Signup')} />
     </View>
   );
-};
-
-export default Login;
-
-
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
-import { getArtworks } from '../services/ArtworkService';
-import {LeaderboardCard} from '../components/LeaderboardCard';
+import { getSortedArtworks } from '../services/ArtworkService';
+import LeaderboardCard from '../components/LeaderboardCard';
 import styles from '../styles';
 
 const LeaderboardScreen = () => {
@@ -9,7 +9,7 @@ const LeaderboardScreen = () => {
 
   useEffect(() => {
     const fetchArtworks = async () => {
-      const artworks = await getArtworks();
+      const artworks = await getSortedArtworks();
       setArtworks(artworks);
     };
 

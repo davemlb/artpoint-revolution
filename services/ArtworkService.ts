@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IArtwork } from '../interfaces/IArtwork';
 
 
-const apiBase = 'http://localhost:3001/api/'
+const apiBase = 'http://localhost:3001/api'
 
 export const getArtworks = async () => {
   try {
@@ -35,7 +35,7 @@ const createArtwork = async (title: string, imageURL: string, artist: string) =>
 
 export const uploadArtwork = async (artwork: IArtwork) => {
   try {
-    const response = await axios.post(`${apiBase}/artwork/`, artwork);
+    const response = await axios.post(`${apiBase}/artworks/`, artwork);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -44,7 +44,7 @@ export const uploadArtwork = async (artwork: IArtwork) => {
 
 export const getLikesCount = async (artworkId: string) => {
   try {
-    const response = await axios.get(`${apiBase}/artwork/${artworkId}/likesCount`);
+    const response = await axios.get(`${apiBase}/artworks/${artworkId}/likesCount`);
     return response.data.likesCount;
   } catch (error) {
     console.error(error);
@@ -52,7 +52,7 @@ export const getLikesCount = async (artworkId: string) => {
 };
 
 const getArtworksByUser = async (username: string) => {
-    const response = await fetch(`http://api.example.com/users/${username}/artworks`);
+    const response = await fetch(`${apiBase}/:${username}/artworks`);
 
     if (!response.ok) {
         throw new Error('Failed to fetch artworks');
@@ -62,7 +62,15 @@ const getArtworksByUser = async (username: string) => {
     return artworks;
 };
 
-
+export const getSortedArtworks = async () => {
+  try {
+      const response = await axios.get(`${apiBase}/artworks/sortedByLikes`);
+  
+      return response.data();
+    } catch (error) {
+      console.error("Error:", error);
+    }
+}
 
 
 

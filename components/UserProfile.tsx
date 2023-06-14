@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import ArtworkCard from './ArtworkCard';
 import IUser from '../interfaces/IUser';
 import { getArtworksByUser } from '../services/ArtworkService';
@@ -29,8 +29,9 @@ const UserProfile = ({ user }: { user: IUser }) => {
   return (
     <View style={styles.container}>
       <View style={styles.profileInfo}>
-        <Text style={styles.name}>{user.username}</Text>
-        <Text style={styles.bio}>Bio about myself</Text>
+        <Image source={{ uri: "https://theaquinian.net/wp-content/uploads/2016/10/meme1.jpg" } } style={styles.profileImage}/>
+        <Text style={styles.name}>@{user.username}</Text>
+        <Text style={styles.bio}>Art inspired by art</Text>
       </View>
       <View style={styles.artworkList}>
         {artworks.map((artwork) => (
@@ -44,20 +45,32 @@ const UserProfile = ({ user }: { user: IUser }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 10,
+    backgroundColor: 'black',
   },
   profileInfo: {
     marginBottom: 20,
+    alignItems: "center"
   },
   name: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: "white"
+
   },
   bio: {
     fontSize: 16,
+    color: "white"
+
   },
   artworkList: {
     flex: 1,
+  },
+  profileImage: {
+    width: '50%',
+    aspectRatio: 1,
+    borderRadius: 100,
+    marginBottom: 10,
   },
 });
 

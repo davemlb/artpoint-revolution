@@ -22,7 +22,6 @@ const ProfileScreen = () => {
 
   return (
     <ScrollView>
-      <Text>Profile</Text>
       <UserProfile user={user} />
     </ScrollView>
   );

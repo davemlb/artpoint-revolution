@@ -22,7 +22,7 @@ const ArtworkList: React.FC<ArtworkListProps> = ({ artworks }) => {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, backgroundColor: "black" }}>
       {artworks?.map((artwork: IArtwork) => (
         <ArtworkCard key={artwork.id.toString()} artwork={artwork} />
       ))}

@@ -22,7 +22,7 @@ const LeaderboardScreen = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: "black"}}>
       {artworks.map((artwork) => (
         <LeaderboardCard key={artwork} artwork={artwork} />
       ))}

@@ -1,31 +1,26 @@
 import React, { useState } from 'react';
 import { IArtwork } from '../interfaces/IArtwork';
 import * as artworkServices from '../services/ArtworkService';
-import { View, Image, Text, Button, StyleSheet } from 'react-native';
-
+import { View, Image, Text, TouchableOpacity, SafeAreaView, TextInput, FlatList, StyleSheet } from 'react-native';
+//import styles from "../styles"
 
 interface ArtworkCardProps {
   artwork: IArtwork;
 }
 
 const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
-
   const [likesCount, setLikesCount] = useState(artwork.likesCount);
 
   const handleLike = async () => {
     try {
       await artworkServices.likeArtwork(artwork.id.toString());
-      // Assuming the likes count is stored in the `artwork` object,
-      // you can increment it by updating the `artwork` state or creating a new updated object.
-      // For example:
-      //const updatedArtwork = { ...artwork, likesCount: artwork.likesCount + 1 };
       const updatedArtwork = await artworkServices.getArtworkById(artwork.id.toString());
       setLikesCount(updatedArtwork.likesCount);
-      // Handle the updated artwork object as needed
       console.log(updatedArtwork);
     } catch (error) {
       console.error("Error:", error);
-    }  };
+    }  
+  };
 
   const handleBookmark = async () => {
     await artworkServices.bookmarkArtwork(artwork.id.toString());
@@ -36,35 +31,62 @@ const ArtworkCard: React.FC<ArtworkCardProps> = ({ artwork }) => {
   };
 
   return (
-    <View>
-      <Image style={styles.image} source={{uri: artwork.imageURL}}  />
-      <Text>@{artwork.artist}</Text>
-      <Text>{artwork.title}</Text>
-      <Text>{likesCount} likes</Text>
-      <Button title="Like" onPress={handleLike} />
-      <Button title="Bookmark" onPress={handleBookmark} />
-      <Button title="Tip" onPress={handleTip} />
+    <View style={stylesCard.item}>
+      <Text style={{color: '#ffffff', marginBottom: 10, textAlign: 'left'}}>@{artwork.artist}</Text>
+      <Image source={{ uri: artwork.imageURL }} style={stylesCard.image} />
+      <Text style={{color: '#ffffff'}}>{artwork.title}</Text>
+      <Text style={{color: '#ffffff'}}>{likesCount} likes</Text>
+      <View style={stylesCard.buttonContainer}>
+        <TouchableOpacity style={stylesCard.buttonC} onPress={handleLike}>
+          <Text style={{color: '#ffffff'}}>Like</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={stylesCard.buttonC} onPress={handleBookmark}>
+          <Text style={{color: '#ffffff'}}>Bookmark</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={stylesCard.buttonC} onPress={handleTip}>
+          <Text style={{color: '#ffffff'}}>Tip</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
-  
 };
 
-const styles = StyleSheet.create({
-  cardContainer: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 16,
-    // Add additional styling properties as needed
+const stylesCard = StyleSheet.create({
+  buttonC: {
+    flex: 1,
+    height: 40,
+    backgroundColor: '#EA4C2B',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20,
+    marginHorizontal: 10,
+    paddingHorizontal: 20,
+  },
+  buttonText: {
+    color: 'white',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
+  },
+  item: {
+    backgroundColor: 'black',
+    padding: 10,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 10,
+    //alignItems: 'center',
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 'auto',
+    aspectRatio: 16 / 9, // Adjust the aspect ratio as needed
+    borderRadius: 10,
     resizeMode: 'cover',
-    marginBottom: 8,
-    // Add additional styling properties as needed
   },
-});
+  
+})
 
 
 export default ArtworkCard;
